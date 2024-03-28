@@ -1,6 +1,21 @@
-import { gridGalleryConfig } from "./src/components/Gallery/gallery";
-import { headerConfig } from "./src/components/Header/header";
+import {
+  gridGalleryConfig,
+  searchImages,
+  showMoreImages,
+} from "./src/components/Gallery/gallery";
+
+import {
+  buttonContainerConfig,
+  logoContainerConfig,
+  searchBarContainerConfig,
+} from "./src/components/Header/header";
+
 import "./style.css";
 
-headerConfig();
+logoContainerConfig();
+searchBarContainerConfig();
+buttonContainerConfig();
+
+searchImages();
+showMoreImages();
 gridGalleryConfig();

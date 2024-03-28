@@ -1,20 +1,18 @@
 import "./gallery.css";
 
-export const gridGalleryConfig = () => {
-  const searchBarContainer = document.querySelector(".search-bar-container");
+let keyWord = "";
+let page;
+
+export const searchImages = async () => {
   const searchBar = document.querySelector("input");
   const gridGallery = document.querySelector(".grid-gallery");
-  const showMoreButton = document.querySelector("#show-more");
 
-  let keyWord = "";
-  let page = 1;
   const accesKey = "woWM4AxFrJe9NXSiYDFuBkUb8l3aFClA12t438zVkIg";
 
-  async function searchImages() {
-    keyWord = searchBar.value;
+  keyWord = searchBar.value;
 
+  try {
     const url = `https://api.unsplash.com/search/photos?page=${page}&query=${keyWord}&client_id=${accesKey}&per_page=12`;
-
     const response = await fetch(url);
     const data = await response.json();
     console.log(data);
@@ -24,9 +22,8 @@ export const gridGalleryConfig = () => {
     }
 
     const images = data.results;
-    console.log(images);
 
-    images.map((result) => {
+    images.forEach((result) => {
       const image = document.createElement("img");
       const imageLink = document.createElement("a");
       const imageDescription = document.createElement("p");
@@ -40,20 +37,46 @@ export const gridGalleryConfig = () => {
       gridGallery.appendChild(imageLink);
       imageLink.appendChild(imageDescription);
     });
+  } catch (error) {
+    console.error("Error fetching images:", error);
   }
+};
 
-  searchBarContainer.addEventListener("submit", (e) => {
-    e.preventDefault();
-    page = 1;
-    searchImages();
-  });
-
-  searchImages();
+export const showMoreImages = () => {
+  const showMoreButton = document.querySelector("#show-more");
+  const searchBar = document.querySelector("input");
 
   showMoreButton.textContent = "Show More";
 
-  showMoreButton.addEventListener("click", () => {
+  showMoreButton.addEventListener("click", async () => {
     page++;
-    searchImages();
+    await searchImages();
+  });
+
+  searchBar.addEventListener("input", searchImages);
+};
+
+export const gridGalleryConfig = () => {
+  const searchBarContainer = document.querySelector(".search-bar-container");
+  const refreshButton = document.querySelector("#refresh-button");
+
+  page = Math.floor(Math.random() * 155) + 1;
+
+  searchBarContainer.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    await searchImages();
+  });
+
+  refreshButton.textContent = "Refresh";
+
+  refreshButton.addEventListener("click", async () => {
+    page = Math.floor(Math.random() * 155) + 1;
+    await searchImages();
+  });
+
+  // Llamar a searchImages al cargar la página
+  window.addEventListener("load", async () => {
+    await searchImages();
+    showMoreImages();
   });
 };
