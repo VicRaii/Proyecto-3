@@ -33,6 +33,7 @@ export const headerConfig = () => {
   };
 
   const buttonContainerConfig = () => {
+    const gridGallery = document.querySelector(".grid-gallery");
     const buttonContainer = document.querySelector(".button-container");
     const refreshButton = document.createElement("button");
 
@@ -41,6 +42,10 @@ export const headerConfig = () => {
     refreshButton.textContent = "Refresh";
 
     buttonContainer.appendChild(refreshButton);
+
+    refreshButton.addEventListener("click", () => {
+      gridGallery.innerHTML = "";
+    });
   };
 
   searchBarContainerConfig();

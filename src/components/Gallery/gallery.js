@@ -1,3 +1,5 @@
+import "./gallery.css";
+
 export const gridGalleryConfig = () => {
   const searchBarContainer = document.querySelector(".search-bar-container");
   const searchBar = document.querySelector("input");
@@ -11,7 +13,7 @@ export const gridGalleryConfig = () => {
   async function searchImages() {
     keyWord = searchBar.value;
 
-    const url = `https://api.unsplash.com/search/photos?page=${page}&query=${keyWord}&client_id=${accesKey}`;
+    const url = `https://api.unsplash.com/search/photos?page=${page}&query=${keyWord}&client_id=${accesKey}&per_page=12`;
 
     const response = await fetch(url);
     const data = await response.json();
@@ -36,7 +38,7 @@ export const gridGalleryConfig = () => {
 
       imageLink.appendChild(image);
       gridGallery.appendChild(imageLink);
-      gridGallery.appendChild(imageDescription);
+      imageLink.appendChild(imageDescription);
     });
   }
 
@@ -47,4 +49,11 @@ export const gridGalleryConfig = () => {
   });
 
   searchImages();
+
+  showMoreButton.textContent = "Show More";
+
+  showMoreButton.addEventListener("click", () => {
+    page++;
+    searchImages();
+  });
 };
