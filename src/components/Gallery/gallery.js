@@ -98,7 +98,7 @@ export const gridGalleryConfig = () => {
         const imageLink = document.createElement("a");
         const imageDescription = document.createElement("p");
 
-        image.src = result.urls.small;
+        image.src = result.urls.regular;
         imageLink.href = result.links.html;
         imageLink.target = "_blank";
         imageDescription.textContent = result.alt_description;
@@ -112,7 +112,10 @@ export const gridGalleryConfig = () => {
     }
   }
 
-  window.addEventListener("load", searchImages);
+  // window.addEventListener("load", () => {
+  //   console.log("La ventana se ha cargado completamente.");
+  //   searchImages();
+  // });
 
   searchBarContainer.addEventListener("submit", (e) => {
     e.preventDefault();
