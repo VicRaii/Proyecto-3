@@ -24,7 +24,6 @@
   width: 50%;
   height: 50px;
   border-radius: 30px;
-  display: flex;
   position: relative;
 }
 
@@ -44,13 +43,11 @@
 }
 
 .search-bar-container button {
-  border-radius: 100%;
+  border-radius: 0 50px 50px 0;
   width: 15%;
-  height: 90%;
+  height: 100%;
   position: absolute;
-  right: 2px;
-  top: 5%;
-  background-color: transparent;
+  right: 0;
   cursor: pointer;
   transition: all 0.3s;
   border: none;
@@ -61,21 +58,23 @@
   color: rgb(71, 71, 172);
   font-size: var(--p3-font-size-m);
   letter-spacing: 1px;
-}
-
-.button-container {
-  width: 70px;
-  height: 30px;
+  font-weight: 600;
 }
 
 .button-container .refresh-button {
-  width: 100%;
-  height: 100%;
+  width: 80px;
+  height: 35px;
   border-radius: 15px;
   border: none;
   cursor: pointer;
   transition: all 0.3s;
   font-size: var(--p3-font-size-m);
+}
+
+.search-bar-container button,
+.button-container .refresh-button {
+  background-color: rgb(19, 31, 162);
+  color: white;
 }
 
 .button-container .refresh-button:hover,
@@ -88,7 +87,7 @@
   border: 1px solid rgba(213, 187, 187, 0.74);
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .header-container {
     height: 40svh;
     display: flex;
@@ -96,10 +95,12 @@
     justify-content: center;
     gap: var(--p3-gap-s);
     padding: var(--p3-padding-xs);
-    border: 1px solid #000;
   }
   .logo-container {
     width: 60px;
     height: 60px;
+  }
+  .search-bar-container button {
+    display: none;
   }
 }
