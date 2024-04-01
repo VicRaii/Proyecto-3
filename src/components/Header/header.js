@@ -20,7 +20,7 @@ export const headerConfig = () => {
     searchBar.type = "search";
     searchBar.classList.add("search-bar");
     searchBar.id = "search-box";
-    searchBar.placeholder = "What are you looking for?";
+    searchBar.placeholder = "What are you searching for?";
     searchButton.textContent = "Search";
 
     searchBarContainer.appendChild(searchBar);
@@ -41,6 +41,7 @@ export const headerConfig = () => {
     refreshButton.addEventListener("click", () => {
       gridGallery.innerHTML = "";
     });
+
   };
 
   searchBarContainerConfig();
