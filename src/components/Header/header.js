@@ -8,6 +8,7 @@ export const headerConfig = () => {
     logoContainer.innerHTML = `
         <a href="#" target="_blank">
            <img src="/assets/pinterest-big-logo.png" alt="pinterestLogo">
+           <h3>PainToCreate</h3>
          </a>
     `;
   };
