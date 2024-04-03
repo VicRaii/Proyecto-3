@@ -28,9 +28,9 @@ export const headerConfig = () => {
   };
 
   const buttonContainerConfig = () => {
-    const gridGallery = document.querySelector(".grid-gallery");
     const buttonContainer = document.querySelector(".button-container");
     const refreshButton = document.createElement("button");
+    const gridGallery = document.querySelector(".grid-gallery");
 
     refreshButton.type = "button";
     refreshButton.classList.add("refresh-button");
@@ -40,8 +40,8 @@ export const headerConfig = () => {
 
     refreshButton.addEventListener("click", () => {
       gridGallery.innerHTML = "";
+      location.reload();
     });
-
   };
 
   searchBarContainerConfig();

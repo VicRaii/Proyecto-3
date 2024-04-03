@@ -1,23 +1,18 @@
 import "./gallery.css";
 
-let keyWord = "";
 let page = 1;
+const accesKey = "woWM4AxFrJe9NXSiYDFuBkUb8l3aFClA12t438zVkIg";
 
 export const gridGalleryConfig = () => {
   const searchBarContainer = document.querySelector(".search-bar-container");
-  const searchBar = document.querySelector("input");
+  const searchBar = document.querySelector(".search-bar");
   const gridGallery = document.querySelector(".grid-gallery");
 
-  const accesKey = "woWM4AxFrJe9NXSiYDFuBkUb8l3aFClA12t438zVkIg";
-
-  async function searchImages() {
-    keyWord = searchBar.value;
-
+  async function searchImages(keyword = "") {
     try {
-      const url = `https://api.unsplash.com/search/photos?page=${page}&query=${keyWord}&client_id=${accesKey}&per_page=12`;
+      const url = `https://api.unsplash.com/search/photos?page=${page}&query=${keyword}&client_id=${accesKey}&per_page=12`;
       const response = await fetch(url);
       const data = await response.json();
-      console.log(data);
 
       if (page === 1) {
         gridGallery.innerHTML = "";
@@ -33,7 +28,36 @@ export const gridGalleryConfig = () => {
         image.src = result.urls.regular;
         imageLink.href = result.links.html;
         imageLink.target = "_blank";
-        imageDescription.textContent = result.alt_description;
+        imageDescription.textContent =
+          result.alt_description || "No description";
+
+        imageLink.appendChild(image);
+        gridGallery.appendChild(imageLink);
+        imageLink.appendChild(imageDescription);
+      });
+    } catch (error) {
+      console.error("Error fetching images:", error);
+    }
+  }
+
+  async function searchRandomImages() {
+    try {
+      const url = `https://api.unsplash.com/photos/random?count=12&client_id=${accesKey}`;
+      const response = await fetch(url);
+      const data = await response.json();
+
+      gridGallery.innerHTML = "";
+
+      data.forEach((result) => {
+        const image = document.createElement("img");
+        const imageLink = document.createElement("a");
+        const imageDescription = document.createElement("p");
+
+        image.src = result.urls.regular;
+        imageLink.href = result.links.html;
+        imageLink.target = "_blank";
+        imageDescription.textContent =
+          result.alt_description || "No description";
 
         imageLink.appendChild(image);
         gridGallery.appendChild(imageLink);
@@ -46,10 +70,12 @@ export const gridGalleryConfig = () => {
 
   searchBarContainer.addEventListener("submit", (e) => {
     e.preventDefault();
-    searchImages();
+    searchImages(searchBar.value);
   });
 
-  searchBar.addEventListener("input", searchImages);
+  searchBar.addEventListener("input", () => {
+    searchImages(searchBar.value);
+  });
 
   const showMoreButtonConfig = () => {
     const showMoreButton = document.querySelector("#show-more");
@@ -58,28 +84,15 @@ export const gridGalleryConfig = () => {
 
     showMoreButton.addEventListener("click", () => {
       page++;
-      searchImages();
+      const keyword = searchBar.value;
+      if (keyword === "") {
+        searchRandomImages();
+      } else {
+        searchImages(keyword);
+      }
     });
   };
 
   showMoreButtonConfig();
+  searchRandomImages();
 };
-
-const upArrowConfig = () => {
-  const upArrow = document.querySelector("#up-arrow");
-  const upArrowImage = document.createElement("img");
-
-  upArrow.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  });
-
-  upArrowImage.src = "/assets/up-arrow.png";
-  upArrowImage.alt = "Go up Arrow";
-
-  upArrow.appendChild(upArrowImage);
-};
-
-upArrowConfig();
