@@ -10,7 +10,7 @@ export const gridGalleryConfig = () => {
 
   async function searchImages(keyword = "") {
     try {
-      const url = `https://api.unsplash.com/search/photos?page=${page}&query=${keyword}&client_id=${accesKey}&per_page=12`;
+      const url = `https://api.unsplash.com/search/photos?page=${page}&query=${keyword}&client_id=${accesKey}&per_page=15`;
       const response = await fetch(url);
       const data = await response.json();
 
@@ -42,7 +42,7 @@ export const gridGalleryConfig = () => {
 
   async function searchRandomImages() {
     try {
-      const url = `https://api.unsplash.com/photos/random?count=12&client_id=${accesKey}`;
+      const url = `https://api.unsplash.com/photos/random?count=15&client_id=${accesKey}`;
       const response = await fetch(url);
       const data = await response.json();
 
