@@ -73,9 +73,9 @@ export const gridGalleryConfig = () => {
     searchImages(searchBar.value);
   });
 
-  searchBar.addEventListener("input", () => {
-    searchImages(searchBar.value);
-  });
+  // searchBar.addEventListener("input", () => {
+  //   searchImages(searchBar.value);
+  // });
 
   const showMoreButtonConfig = () => {
     const showMoreButton = document.querySelector("#show-more");
